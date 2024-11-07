@@ -5118,7 +5118,7 @@ static void TCPIPCmdMiimTask(void)
         }
         else
         {
-            fmtStr = "Miim %s: %d, netIx: %d, add: %d, val: 0x%4x\r\n"; 
+            fmtStr = "Miim %s: %02d, netIx: %02d, add: %02d, val: 0x%04x\r\n"; 
         }
 
         (*pTcpipCmdDevice->pCmdApi->print)(miimCmdIoParam, fmtStr, opName, miimRegIx, miimNetIx, miimAdd, opData);

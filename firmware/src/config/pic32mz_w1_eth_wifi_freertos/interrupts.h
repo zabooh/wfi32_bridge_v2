@@ -59,6 +59,7 @@
 
 void CORE_TIMER_InterruptHandler( void );
 void NVM_InterruptHandler( void );
+void DRV_USBFS_USB_Handler( void );
 void UART1_FAULT_InterruptHandler( void );
 void UART1_RX_InterruptHandler( void );
 void UART1_TX_InterruptHandler( void );

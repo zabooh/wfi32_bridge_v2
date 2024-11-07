@@ -62,6 +62,7 @@
 
 
 /* All the handlers are defined here.  Each will call its PLIB-specific function. */
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: System Interrupt Vector declarations
@@ -69,6 +70,7 @@
 // *****************************************************************************
 void CORE_TIMER_Handler (void);
 void FLASH_CONTROL_Handler (void);
+void USB_Handler (void);
 void UART1_FAULT_Handler (void);
 void UART1_RX_Handler (void);
 void UART1_TX_Handler (void);
@@ -95,6 +97,11 @@ void CORE_TIMER_Handler (void)
 void FLASH_CONTROL_Handler (void)
 {
     NVM_InterruptHandler();
+}
+
+void USB_Handler (void)
+{
+    DRV_USBFS_USB_Handler();
 }
 
 void UART1_FAULT_Handler (void)

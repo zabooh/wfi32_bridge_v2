@@ -50,11 +50,16 @@
 #include <stdbool.h>
 #include "crypto/crypto.h"
 #include "driver/ba414e/drv_ba414e.h"
+#include "usb/usb_chapter_9.h"
+#include "usb/usb_device.h"
 #include "driver/ethmac/drv_ethmac.h"
 #include "system/time/sys_time.h"
 #include "peripheral/nvm/plib_nvm.h"
 #include "peripheral/coretimer/plib_coretimer.h"
+#include "usb/usb_device_cdc.h"
+#include "usb/usb_cdc.h"
 #include "peripheral/uart/plib_uart1.h"
+#include "driver/usb/usbfs/drv_usbfs.h"
 #include "system/int/sys_int.h"
 #include "system/reset/sys_reset.h"
 #include "osal/osal.h"
@@ -71,7 +76,7 @@
 #include "driver/wifi/pic32mzw1/include/wdrv_pic32mzw_api.h"
 #include "system/wifi/sys_wifi.h"
 #include "system/console/sys_console.h"
-#include "system/console/src/sys_console_uart_definitions.h"
+#include "system/console/src/sys_console_usb_cdc_definitions.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "app.h"
@@ -208,7 +213,11 @@ typedef struct
 
     SYS_MODULE_OBJ  ba414e;
 
+    SYS_MODULE_OBJ  usbDevObject0;
+
     SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ  drvUSBFSObject;
+
     SYS_MODULE_OBJ  sysConsole0;
 
 
@@ -229,6 +238,8 @@ typedef struct
 // Section: extern declarations
 // *****************************************************************************
 // *****************************************************************************
+
+extern const USB_DEVICE_INIT usbDevInitData; 
 
 
 

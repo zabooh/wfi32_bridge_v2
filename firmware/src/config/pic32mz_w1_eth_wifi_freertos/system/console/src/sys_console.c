@@ -258,6 +258,8 @@ ssize_t SYS_CONSOLE_ReadCountGet(const SYS_CONSOLE_HANDLE handle)
     }
 }
 
+extern bool console_wait;
+
 ssize_t SYS_CONSOLE_Write(
     const SYS_CONSOLE_HANDLE handle,
     const void* buf,
@@ -274,6 +276,12 @@ ssize_t SYS_CONSOLE_Write(
         }
 
         return pConsoleObj->devDesc->write_t(pConsoleObj->devIndex, buf, count);
+        
+        if(console_wait==true){
+            vTaskDelay(count*10 / portTICK_PERIOD_MS);
+        }
+
+        
     }
     else
     {
@@ -321,7 +329,6 @@ ssize_t SYS_CONSOLE_WriteCountGet(const SYS_CONSOLE_HANDLE handle)
 
 /* MISRA C-2012 Rule 17.1, 21.6 deviated below. Deviation record ID -
    H3_MISRAC_2012_R_17_1_DR_1 & H3_MISRAC_2012_R_21_6_DR_1*/
-
 void SYS_CONSOLE_Print(const SYS_CONSOLE_HANDLE handle, const char *format, ...)
 {
     size_t len = 0;

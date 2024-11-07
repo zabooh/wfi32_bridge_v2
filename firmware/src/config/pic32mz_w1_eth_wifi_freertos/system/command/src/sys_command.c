@@ -805,6 +805,7 @@ bool SYS_CMD_CallbackDeregister(SYS_CMD_HANDLE handle)
 static void SendCommandMessage(const void* cmdIoParam, const char* message)
 {
     (void) SYS_CONSOLE_Write(cmdInitData.consoleIndex, message, strlen(message));
+    vTaskDelay( (strlen(message)>>1) / portTICK_PERIOD_MS); //MR:
 }
 
 static void SendCommandPrint(const void* cmdIoParam, const char* format, ...)

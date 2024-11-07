@@ -67,6 +67,7 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
+bool console_wait = false;
 
 /* TODO:  Add any necessary local functions.
 */
@@ -141,7 +142,7 @@ void APP_Tasks ( void )
 
             if (appInitialized)
             {
-
+                console_wait = true;
                 appData.state = APP_STATE_SERVICE_TASKS;
             }
             break;

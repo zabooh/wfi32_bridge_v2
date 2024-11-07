@@ -69,6 +69,27 @@ void _DRV_BA414E_Tasks(  void *pvParameters  )
     }
 }
 
+static void F_USB_DEVICE_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+                /* USB Device layer tasks routine */
+        USB_DEVICE_Tasks(sysObj.usbDevObject0);
+        vTaskDelay(10U / portTICK_PERIOD_MS);
+    }
+}
+
+
+void lSYS_CONSOLE_0_Tasks(  void *pvParameters  )
+{
+    while(1)
+    {
+        SYS_CONSOLE_Tasks(SYS_CONSOLE_INDEX_0);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
+    }
+}
+
+
 /* Handle for the APP_Tasks. */
 TaskHandle_t xAPP_Tasks;
 
@@ -163,7 +184,14 @@ void _SYS_WIFI_Task(  void *pvParameters  )
 void SYS_Tasks ( void )
 {
     /* Maintain system services */
-    
+        xTaskCreate( lSYS_CONSOLE_0_Tasks,
+        "SYS_CONSOLE_0_TASKS",
+        SYS_CONSOLE_RTOS_STACK_SIZE_IDX0,
+        (void*)NULL,
+        SYS_CONSOLE_RTOS_TASK_PRIORITY_IDX0,
+        (TaskHandle_t*)NULL
+    );
+
 
     (void) xTaskCreate( lSYS_CMD_Tasks,
         "SYS_CMD_TASKS",
@@ -204,6 +232,16 @@ void SYS_Tasks ( void )
         DRV_BA414E_RTOS_STACK_SIZE,
         (void*)NULL,
         DRV_BA414E_RTOS_TASK_PRIORITY,
+        (TaskHandle_t*)NULL
+    );
+
+
+    /* Create OS Thread for USB_DEVICE_Tasks. */
+    (void) xTaskCreate( F_USB_DEVICE_Tasks,
+        "USB_DEVICE_TASKS",
+        1024,
+        (void*)NULL,
+        1,
         (TaskHandle_t*)NULL
     );
 
