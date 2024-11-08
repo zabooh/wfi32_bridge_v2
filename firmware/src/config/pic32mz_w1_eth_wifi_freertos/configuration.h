@@ -97,7 +97,7 @@ extern "C" {
 #define SYS_CONSOLE_USB_CDC_WR_BUFFER_SIZE_IDX0    129
 
 /* Console Driver Instance 0 RTOS Configurations*/
-#define SYS_CONSOLE_RTOS_STACK_SIZE_IDX0               256
+#define SYS_CONSOLE_RTOS_STACK_SIZE_IDX0               1024
 #define SYS_CONSOLE_RTOS_TASK_PRIORITY_IDX0                     1
 
 

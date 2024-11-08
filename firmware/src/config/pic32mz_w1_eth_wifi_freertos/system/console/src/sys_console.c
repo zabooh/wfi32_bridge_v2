@@ -365,6 +365,11 @@ void SYS_CONSOLE_Print(const SYS_CONSOLE_HANDLE handle, const char *format, ...)
         (void) pConsoleObj->devDesc->write_t(pConsoleObj->devIndex, consolePrintBuffer, len);
     }
 
+    extern bool print_delay;
+    if(print_delay == true){
+        vTaskDelay( (len*2) / portTICK_PERIOD_MS);
+    }
+    
     /* Release mutex */
     (void) OSAL_MUTEX_Unlock(&consolePrintBufferMutex);
 }

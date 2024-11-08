@@ -34,6 +34,8 @@
 #include <string.h>
 #include "osal/osal.h"
 #include "configuration.h"
+#include "definitions.h"
+#include "config/pic32mz_w1_eth_wifi_freertos/vt100.h"
 
 
 // DOM-IGNORE-BEGIN
@@ -65,6 +67,7 @@ typedef enum
 {
     /* Application's state machine's initial state. */
     APP_STATE_INIT=0,
+    APP_STATE_WAIT_FOR_TCP_STACK_READY,
     APP_STATE_SERVICE_TASKS,
     /* TODO: Define states used by the application state machine. */
 
@@ -93,6 +96,13 @@ typedef struct
 
 } APP_DATA;
 
+
+typedef struct {        
+    char msg[4096];
+    uint32_t magic;
+} EXCEPT_MSG;
+
+#define MAGIC_CODE 0x47114711
 
 /*******************************************************************************
   Function:
